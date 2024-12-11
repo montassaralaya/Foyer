@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.DAO.Entities.Bloc;
 import tn.esprit.spring.DAO.Entities.Chambre;
-import tn.esprit.spring.DAO.Entities.Reservation;
+//import tn.esprit.spring.DAO.Entities.Reservation;
 import tn.esprit.spring.DAO.Entities.TypeChambre;
 import tn.esprit.spring.DAO.Repositories.BlocRepository;
 import tn.esprit.spring.DAO.Repositories.ChambreRepository;
@@ -56,7 +56,7 @@ public class ChambreService implements IChambreService {
         return repo.countByTypeCAndBlocIdBloc(type, idBloc);
     }
 
-    @Override
+   /* @Override
     public List<Chambre> getChambresNonReserveParNomFoyerEtTypeChambre(String nomFoyer, TypeChambre type) {
 
         // Afficher les chambres non réservée, par typeChambre,
@@ -97,7 +97,7 @@ public class ChambreService implements IChambreService {
             }
         }
         return listChambreDispo;
-    }
+    }*/
 
     @Override
     public void listeChambresParBloc() {
@@ -128,7 +128,7 @@ public class ChambreService implements IChambreService {
 
     }
 
-    @Override
+   /* @Override
     public void nbPlacesDisponibleParChambreAnneeEnCours() {
         // Début "récuperer l'année universitaire actuelle"
         LocalDate dateDebutAU;
@@ -168,5 +168,5 @@ public class ChambreService implements IChambreService {
                     }
             }
         }
-    }
+    }*/
 }
