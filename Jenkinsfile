@@ -18,5 +18,11 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+        stage('JUnit Test') {
+            steps {
+                sh 'mvn clean test'
+
+            }
+        }
     }
 }
