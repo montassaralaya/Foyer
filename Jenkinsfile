@@ -67,5 +67,23 @@ pipeline {
                 }
             }
         }
+        stage('Monitor with Grafana') {
+                    steps {
+                        script {
+                            // Use Grafana credentials from Jenkins
+                            withCredentials([usernamePassword(credentialsId: '0cf7a689-6450-4a17-a258-c0e9857257ae', usernameVariable: 'GRAFANA_USER', passwordVariable: 'GRAFANA_PASSWORD')]) {
+                                // Checking if Grafana is reachable
+                                def grafanaUrl = "http://10.0.2.15:3000/" // Grafana URL
+                                def response = sh(script: "curl -u ${GRAFANA_USER}:${GRAFANA_PASSWORD} -I ${grafanaUrl}", returnStatus: true)
+
+                                if (response == 0) {
+                                    echo 'Grafana is running!'
+                                } else {
+                                    error 'Grafana is not reachable!'
+                                }
+                            }
+                        }
+                    }
+                }
     }
 }
