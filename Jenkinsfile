@@ -35,6 +35,7 @@ pipeline {
                     steps {
                             script {
                                 sh 'docker compose build'
+                                 sh 'docker images'
                         }
                     }
                 }
