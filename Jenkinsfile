@@ -21,24 +21,23 @@ pipeline {
         stage('JUnit Test') {
             steps {
                 sh 'mvn clean test'
-
             }
         }
         stage('Nexus Deployment') {
-                    steps {
-                            script {
-                                sh 'mvn deploy'
-                        }
-                    }
+            steps {
+                script {
+                    sh 'mvn deploy'
                 }
+            }
+        }
         stage('Build Image') {
-                    steps {
-                            script {
-                                sh 'docker compose build'
-                                 sh 'docker images'
-                        }
-                    }
+            steps {
+                script {
+                    sh 'docker compose build'
+                    sh 'docker images'
                 }
+            }
+        }
         stage('Tag Image') {
             steps {
                 script {
@@ -47,13 +46,12 @@ pipeline {
                 }
             }
         }
-
         stage('Push to Docker Hub') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: '36352b67-8f51-4554-ad97-c5a5855875af', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                         // Log in to Docker Hub
-                        sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+                        sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin"
 
                         // Push the image to Docker Hub
                         sh 'docker push mponta/foyer:latest'  // Push the latest tag
@@ -61,16 +59,13 @@ pipeline {
                 }
             }
         }
-
         stage('Deploy with Docker Compose') {
-                    steps {
-                            script {
-                                // Use Docker Compose to start the services
-                                sh 'docker compose up -d'  // Use -d to run in detached mode
-                            }
-                        }
-                    }
+            steps {
+                script {
+                    // Use Docker Compose to start the services
+                    sh 'docker compose up -d'  // Use -d to run in detached mode
                 }
-
+            }
+        }
     }
 }
