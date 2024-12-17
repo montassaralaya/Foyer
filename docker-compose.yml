@@ -1,0 +1,32 @@
+version: "3.8"  # Specify the version of Docker Compose
+
+services:
+  mysqldb:  # MySQL service
+    image: mysql:5.7  # Use the MySQL 5.7 image
+    #restart: unless-stopped  # Restart policy
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: foyer
+      MYSQL_ROOT_PASSWORD: ""
+    ports:
+      - "3306:3306"  # Expose port 3306 on the host
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      retries: 5
+    volumes:
+      - db:/var/lib/mysql  # Use named volume for MySQL data persistence
+
+  app-foyer:  # Your Spring Boot application service
+    image: mponta/foyer:1.0.0  # Replace with your image name
+    #restart: on-failure  # Restart policy
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8089:8089"  # Expose port 8089 on the hos
+    depends_on:
+      - mysqldb  # Ensure MySQL starts before the app
+
+# Volumes section for defining named volumes
+volumes:
+  db:  # Define a named volume for MySQL data persistence
