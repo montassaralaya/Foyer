@@ -24,22 +24,22 @@ pipeline {
             }
         }
         stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def mvn = tool 'Default Maven'
+                    steps {
+                        script {
+                            def mvn = tool 'Default Maven' // Matches the configured Maven tool name
 
-                    withSonarQubeEnv() {
-                        withCredentials([string(credentialsId: 'squ_9702b923814973bdad8a99892ac194529547eac6', variable: 'SONAR_TOKEN')]) {
-                            sh "${mvn}/bin/mvn clean verify sonar:sonar " +
-                               "-Dsonar.projectKey=montassaralaya_Foyer_1b56a0d3-e513-4446-806f-266745a517bf " +
-                               "-Dsonar.projectName='Foyer' " +
-                               "-Dsonar.jacoco.reportPaths=target/jacoco.exec " +
-                               "-Dsonar.login=${SONAR_TOKEN}"
+                            withSonarQubeEnv('SonarQube') { // Name of your SonarQube server in Jenkins
+                                withCredentials([string(credentialsId: 'squ_9702b923814973bdad8a99892ac194529547eac6', variable: 'SONAR_TOKEN')]) {
+                                    sh "${mvn}/bin/mvn clean verify sonar:sonar " +
+                                       "-Dsonar.projectKey=montassaralaya_Foyer_1b56a0d3-e513-4446-806f-266745a517bf " +
+                                       "-Dsonar.projectName='Foyer' " +
+                                       "-Dsonar.jacoco.reportPaths=target/jacoco.exec " +
+                                       "-Dsonar.login=${SONAR_TOKEN}"
+                                }
+                            }
                         }
                     }
                 }
-            }
-        }
 
         stage('Nexus Deployment') {
             steps {
