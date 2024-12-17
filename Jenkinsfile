@@ -43,7 +43,7 @@ pipeline {
                       steps {
                               script {
                                   // Tag the application image for Docker Hub
-                                  sh 'docker tag mponta/foyer:0.0.1 mponta/foyer:1.0.0'
+                                  sh 'docker tag mponta/foyer:1.0.0 mponta/foyer:1.0.0'
                           }
                       }
                   }
