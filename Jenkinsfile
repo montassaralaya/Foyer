@@ -62,5 +62,15 @@ pipeline {
             }
         }
 
+        stage('Deploy with Docker Compose') {
+                    steps {
+                            script {
+                                // Use Docker Compose to start the services
+                                sh 'docker compose up -d'  // Use -d to run in detached mode
+                            }
+                        }
+                    }
+                }
+
     }
 }
