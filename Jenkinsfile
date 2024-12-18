@@ -33,7 +33,6 @@ pipeline {
                                     sh "${mvn}/bin/mvn clean verify sonar:sonar " +
                                        "-Dsonar.projectKey=montassaralaya_Foyer_1b56a0d3-e513-4446-806f-266745a517bf " +
                                        "-Dsonar.projectName='Foyer' " +
-                                       "-Dsonar.jacoco.reportPaths=target/jacoco.exec " +
                                        "-Dsonar.login=${SONAR_TOKEN}"
                                 }
                             }
