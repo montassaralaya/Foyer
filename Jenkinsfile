@@ -29,7 +29,7 @@ pipeline {
                             def mvn = tool 'Default Maven'
 
                             withSonarQubeEnv('SonarQube') { // This name should match the SonarQube server name
-                                withCredentials([string(credentialsId: 'squ_9702b923814973bdad8a99892ac194529547eac6', variable: 'SONAR_TOKEN')]) {
+                                withCredentials([string(credentialsId: '2b9ef20b-3bfd-4f89-a1e0-0604d7a2d9f1', variable: 'SONAR_TOKEN')]) {
                                     sh "${mvn}/bin/mvn clean verify sonar:sonar " +
                                        "-Dsonar.projectKey=montassaralaya_Foyer_1b56a0d3-e513-4446-806f-266745a517bf " +
                                        "-Dsonar.projectName='Foyer' " +
@@ -40,7 +40,7 @@ pipeline {
                             }
                         }
                     }
-        }
+                }
 
         stage('Nexus Deployment') {
             steps {
